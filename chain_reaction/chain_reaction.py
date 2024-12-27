@@ -65,9 +65,17 @@ class ChainReaction():
             if(self.grid[y1][x1].type == self.grid[y1][x1].atoms):
                 self.explode(y1,x1,player_no)
 
-
-
-
+    def check_game_over(self):
+        owner = -1
+        for row in self.grid:
+            for dot in row:
+                if dot.owner != 0:  # Ignore unoccupied cells
+                    if owner == -1:
+                        owner = dot.owner
+                    elif owner != dot.owner:
+                        return -1  # More than one player owns cells
+                    
+        return owner 
 
         
         

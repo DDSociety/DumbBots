@@ -31,6 +31,7 @@ class ChainReactionUI:
         
         # Player turn
         self.current_player = 1
+        self.moves_count = 0  # Count moves to skip winner check on the first move
         
         # Font for turn display
         self.font = pygame.font.Font(None, 36)
@@ -78,6 +79,18 @@ class ChainReactionUI:
         text_rect = text_surface.get_rect(center=(self.screen_width // 2, 25))
         self.screen.blit(text_surface, text_rect)
     
+    def display_winner(self, winner):
+        # Display the winner
+        winner_text = f"Player {winner} Wins!"
+        text_surface = self.font.render(winner_text, True, BLACK)
+        text_rect = text_surface.get_rect(center=(self.screen_width // 2, self.screen_height // 2))
+        self.screen.fill(WHITE)
+        self.screen.blit(text_surface, text_rect)
+        pygame.display.flip()
+        pygame.time.wait(3000)
+        pygame.quit()
+        sys.exit()
+
     def handle_click(self, pos):
         # Adjust for top margin
         adjusted_y = pos[1] - 50
@@ -97,13 +110,19 @@ class ChainReactionUI:
                 try:
                     # Attempt to add dot
                     self.game.add_dot(y, x, self.current_player)
-                
+                    self.moves_count += 1
+
+                    # Check if the game is over (skip check for the first move)
+                    if self.moves_count > 1:
+                        winner = self.game.check_game_over()
+                        if winner != -1:
+                            self.display_winner(winner)
+                    
                     # Switch players if move was valid
                     self.current_player = 3 - self.current_player
                 except Exception:
                     # If move is invalid for any reason, keep same player's turn
                     pass
-        return self
     
     def run(self):
         clock = pygame.time.Clock()

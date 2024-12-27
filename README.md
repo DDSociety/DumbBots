@@ -70,27 +70,5 @@ while True:
         break
 ```
 
----
-
-## 🛠️ Requirements
-- 🐍 Python 3.7+
-
----
-
-## 📜 License
-This project is licensed under the **MIT License**. See the `LICENSE` file for more details.
-
----
-
-## 🤝 Contributing
-Contributions are welcome! Feel free to open issues or submit pull requests.
-
----
-
-## 📧 Contact
-For questions or feedback, please reach out to [your_email@example.com](mailto:your_email@example.com).
-
----
-
 🎮 Happy Gaming!
 
